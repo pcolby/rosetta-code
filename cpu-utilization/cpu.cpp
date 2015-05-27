@@ -28,6 +28,6 @@ int main(int, char *[]) {
         std::cout << utilization << '%' << std::endl;
         prev_idle_time = idle_time;
         prev_total_time = total_time;
-        usleep(1*1000*1000);
+        sleep(1);
     }
 }
