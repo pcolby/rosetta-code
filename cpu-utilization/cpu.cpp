@@ -10,10 +10,7 @@ std::vector<size_t> get_cpu_times() {
     if (proc_stat.is_open()) {
         std::string name;
         proc_stat >> name;
-        size_t time;
-        while (proc_stat >> time) {
-            times.push_back(time);
-        }
+        for (size_t time; proc_stat >> time; times.push_back(time));
     }
     return times;
 }
