@@ -1,6 +1,6 @@
+#include <fstream>
 #include <iostream>
 #include <numeric>
-#include <fstream>
 #include <unistd.h>
 #include <vector>
 
@@ -14,7 +14,7 @@ std::vector<size_t> get_cpu_times() {
 
 bool get_cpu_times(size_t &idle_time, size_t &total_time) {
     const std::vector<size_t> cpu_times = get_cpu_times();
-    if (cpu_times.size() < 3)
+    if (cpu_times.size() < 4)
         return false;
     idle_time = cpu_times[3];
     total_time = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
