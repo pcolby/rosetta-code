@@ -15,15 +15,17 @@ std::vector<size_t> get_cpu_times() {
 }
 
 int main(int, char *[]) {
-    size_t prev_idle_time=0, prev_total_time=0;
+    size_t previous_idle_time=0, previous_total_time=0;
     while (true) {
         const std::vector<size_t> cpu_times = get_cpu_times();
-        const size_t idle_time = cpu_times[3];
-        const size_t total_time = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
-        const float utilization = 100.0 * (1.0 - (idle_time - prev_idle_time) / static_cast<float>(total_time - prev_total_time));
+        const size_t current_idle_time = cpu_times[3];
+        const size_t current_total_time = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
+        const float idle_time_delta = current_idle_time - previous_idle_time;
+        const float total_time_delta = current_total_time - previous_total_time;
+        const float utilization = 100.0 * (1.0 - idle_time_delta / total_time_delta);
         std::cout << utilization << '%' << std::endl;
-        prev_idle_time = idle_time;
-        prev_total_time = total_time;
+        previous_idle_time = current_idle_time;
+        previous_total_time = current_total_time;
         sleep(1);
     }
 }
