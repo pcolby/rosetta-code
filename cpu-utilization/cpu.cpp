@@ -8,8 +8,7 @@ std::vector<size_t> get_cpu_times() {
     std::vector<size_t> times;
     std::ifstream proc_stat("/proc/stat");
     if (proc_stat.is_open()) {
-        std::string name;
-        proc_stat >> name;
+        proc_stat.ignore(5, ' '); // Skip the 'cpu' prefix.
         for (size_t time; proc_stat >> time; times.push_back(time));
     }
     return times;
